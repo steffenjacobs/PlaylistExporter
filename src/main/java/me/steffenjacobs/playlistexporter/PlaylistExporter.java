@@ -1,4 +1,4 @@
-package me.steffenjacobs;
+package me.steffenjacobs.playlistexporter;
 
 import java.io.File;
 
@@ -6,12 +6,12 @@ import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import me.steffenjacobs.strategy.PlaylistFormatStrategy;
+import me.steffenjacobs.playlistexporter.strategy.PlaylistFormatStrategy;
 
 /** @author Steffen Jacobs */
-public class PlaylistReader {
+public class PlaylistExporter {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PlaylistReader.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PlaylistExporter.class);
 
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -31,7 +31,7 @@ public class PlaylistReader {
 			}
 			LOG.info("Read playlist from {} files.", args.length);
 		} else {
-			LOG.error("Usage: java -jar ./PlaylistReader.jar <Path-To-PlaylistFile1> [<PlaylistFile2>]* ");
+			LOG.error("Usage: java -jar ./PlaylistExporter.jar <Path-To-PlaylistFile1> [<PlaylistFile2>]* ");
 		}
 	}
 }

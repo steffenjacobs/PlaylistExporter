@@ -1,4 +1,4 @@
-package me.steffenjacobs;
+package me.steffenjacobs.playlistexporter;
 
 import java.io.File;
 import java.io.IOException;

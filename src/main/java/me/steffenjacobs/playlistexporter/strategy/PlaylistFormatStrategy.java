@@ -1,4 +1,4 @@
-package me.steffenjacobs.strategy;
+package me.steffenjacobs.playlistexporter.strategy;
 
 import java.io.File;
 import java.util.Arrays;

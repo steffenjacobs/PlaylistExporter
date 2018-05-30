@@ -6,7 +6,7 @@
 //
 
 
-package me.steffenjacobs.domain.wpl;
+package me.steffenjacobs.playlistexporter.domain.wpl;
 
 import java.util.ArrayList;
 import java.util.List;

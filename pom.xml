@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>PlaylistReader</groupId>
-	<artifactId>PlaylistReader</artifactId>
+	<groupId>me.steffenjacobs</groupId>
+	<artifactId>PlaylistExporter</artifactId>
 	<version>1.0.0</version>
 
 	<dependencies>
@@ -34,7 +34,7 @@
 	<packaging>jar</packaging>
 
 	<build>
-		<finalName>PlaylistReader</finalName>
+		<finalName>PlaylistExporter</finalName>
 		<plugins>
 
 			<plugin>
@@ -53,7 +53,7 @@
 					<transformers>
 						<transformer
 							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-							<mainClass>me.steffenjacobs.PlaylistReader</mainClass>
+							<mainClass>me.steffenjacobs.playlistexporter.PlaylistExporter</mainClass>
 						</transformer>
 					</transformers>
 				</configuration>

@@ -6,7 +6,7 @@
 //
 
 
-package me.steffenjacobs.domain.asx;
+package me.steffenjacobs.playlistexporter.domain.asx;
 
 import java.util.ArrayList;
 import java.util.List;

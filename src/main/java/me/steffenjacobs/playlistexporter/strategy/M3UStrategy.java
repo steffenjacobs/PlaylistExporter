@@ -1,4 +1,4 @@
-package me.steffenjacobs.strategy;
+package me.steffenjacobs.playlistexporter.strategy;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +14,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import me.steffenjacobs.FileService;
+import me.steffenjacobs.playlistexporter.FileService;
 
 /** @author Steffen Jacobs */
 public class M3UStrategy implements PlaylistFormatStrategy {

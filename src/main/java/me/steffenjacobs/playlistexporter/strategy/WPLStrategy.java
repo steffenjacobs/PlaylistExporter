@@ -1,4 +1,4 @@
-package me.steffenjacobs.strategy;
+package me.steffenjacobs.playlistexporter.strategy;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import me.steffenjacobs.FileService;
-import me.steffenjacobs.domain.wpl.Smil;
-import me.steffenjacobs.domain.wpl.Smil.Body.Seq.Media;
+import me.steffenjacobs.playlistexporter.FileService;
+import me.steffenjacobs.playlistexporter.domain.wpl.Smil;
+import me.steffenjacobs.playlistexporter.domain.wpl.Smil.Body.Seq.Media;
 
 /**
  * Strategy for Windows Media Player Playlists (.wpl)

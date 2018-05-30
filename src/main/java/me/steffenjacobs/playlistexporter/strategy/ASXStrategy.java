@@ -1,4 +1,4 @@
-package me.steffenjacobs.strategy;
+package me.steffenjacobs.playlistexporter.strategy;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,10 +14,10 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import me.steffenjacobs.FileService;
-import me.steffenjacobs.domain.asx.Asx;
-import me.steffenjacobs.domain.asx.Asx.Entry;
-import me.steffenjacobs.domain.asx.Asx.Entry.Ref;
+import me.steffenjacobs.playlistexporter.FileService;
+import me.steffenjacobs.playlistexporter.domain.asx.Asx;
+import me.steffenjacobs.playlistexporter.domain.asx.Asx.Entry;
+import me.steffenjacobs.playlistexporter.domain.asx.Asx.Entry.Ref;
 
 /**
  * Strategy for Windows Media Player Playlists (.wpl)
