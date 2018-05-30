@@ -6,6 +6,9 @@ import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import me.steffenjacobs.strategy.PlaylistFormatStrategy;
+import me.steffenjacobs.strategy.StrategyDeterminer;
+
 /** @author Steffen Jacobs */
 public class PlaylistReader {
 
@@ -13,11 +16,14 @@ public class PlaylistReader {
 
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
-		WPLStrategy strat = new WPLStrategy();
 		if (args.length > 0) {
 			for (String s : args) {
-
-				strat.readPlaylistFile(s, new File(s).getParent());
+				File f = new File(s);
+				if (!f.exists()) {
+					LOG.error("File '{}' not found.", f.getAbsolutePath());
+				}
+				PlaylistFormatStrategy strat = new StrategyDeterminer().determineStrategy(f);
+				strat.readPlaylistFile(f, f.getParent());
 			}
 			LOG.info("Read playlist from {} files.", args.length);
 		} else {

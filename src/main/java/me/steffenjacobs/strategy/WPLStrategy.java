@@ -1,4 +1,4 @@
-package me.steffenjacobs;
+package me.steffenjacobs.strategy;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,9 +9,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import me.steffenjacobs.FileService;
 import me.steffenjacobs.domain.wpl.Smil;
 import me.steffenjacobs.domain.wpl.Smil.Body.Seq.Media;
 
@@ -23,23 +25,19 @@ import me.steffenjacobs.domain.wpl.Smil.Body.Seq.Media;
  *      Documentation of .wpl</a>
  * @author Steffen Jacobs
  */
-public class WPLStrategy {
+public class WPLStrategy implements PlaylistFormatStrategy {
 
 	private FileService fileService = FileService.instance;
 
 	private static final Logger LOG = LoggerFactory.getLogger(WPLStrategy.class);
 
-	public void readPlaylistFile(String file, String target) {
-		if (!new File(file).exists()) {
-			LOG.error("File {} does not exist.", file);
-			return;
-		}
-
+	@Override
+	public void readPlaylistFile(File file, String target) {
 		Smil smil;
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Smil.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			smil = (Smil) jaxbUnmarshaller.unmarshal(new File(file));
+			smil = (Smil) jaxbUnmarshaller.unmarshal(file);
 		} catch (JAXBException e) {
 			LOG.error(e.getLocalizedMessage());
 			return;
@@ -51,12 +49,12 @@ public class WPLStrategy {
 	}
 
 	/** finds out playlist title or use filename instead */
-	private String determineTitle(String file, Smil smil) {
+	private String determineTitle(File file, Smil smil) {
 		String title;
 		if (smil.getHead() != null && smil.getHead().getTitle() != null) {
 			title = smil.getHead().getTitle();
 		} else {
-			title = new File(file).getName();
+			title = FilenameUtils.removeExtension(file.getName());
 		}
 		return title;
 	}
@@ -66,7 +64,7 @@ public class WPLStrategy {
 			LOG.info("Copying files from list {} by {}", smil.getHead().getTitle(), smil.getHead().getTitle());
 		}
 
-		if (smil.getBody() == null || smil.getBody().getSeq() == null || smil.getBody().getSeq().getMedia() == null) {
+		if (smil != null && smil.getBody() == null || smil.getBody().getSeq() == null || smil.getBody().getSeq().getMedia() == null) {
 			if (smil.getHead() == null) {
 				LOG.error("Invalid playlist");
 				return new ArrayList<>();
