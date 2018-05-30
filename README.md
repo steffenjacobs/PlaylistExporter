@@ -1,5 +1,5 @@
 # PlaylistReader
-This small tool can read a playlist and copy all related files into a new directory. This is useful e.g. if you use playlists on your computer and wants to copy all files from a playlist to your mobile phone.
+This small tool can read a playlist and copy all related files into a new directory. This is useful e.g. if you use playlists on your computer and want to gather all files from a playlist into a single folder to copy them to your mobile phone.
 
 # Supported Playlist Formats
 Currently, the playlist formats Windows Media Playlist (WPL), Advanced Stream Redirector (ASX) and MP3 URL (M3U) are supported.
