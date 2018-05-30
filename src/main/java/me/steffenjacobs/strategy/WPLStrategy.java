@@ -34,9 +34,7 @@ public class WPLStrategy implements PlaylistFormatStrategy {
 	@Override
 	public boolean isFormat(File file) {
 		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(Smil.class);
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			jaxbUnmarshaller.unmarshal(file);
+			unmarshal(file);
 			return true;
 		} catch (JAXBException e) {
 			return false;
@@ -48,9 +46,7 @@ public class WPLStrategy implements PlaylistFormatStrategy {
 		System.setProperty("user.dir", file.getParent());
 		Smil smil;
 		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(Smil.class);
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			smil = (Smil) jaxbUnmarshaller.unmarshal(file);
+			smil = unmarshal(file);
 		} catch (JAXBException e) {
 			LOG.error(e.getLocalizedMessage());
 			return;
@@ -61,8 +57,17 @@ public class WPLStrategy implements PlaylistFormatStrategy {
 		fileService.handleCopy(target, files, title);
 	}
 
+	private Smil unmarshal(File file) throws JAXBException {
+		JAXBContext jaxbContext = JAXBContext.newInstance(Smil.class);
+		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		return (Smil) jaxbUnmarshaller.unmarshal(file);
+	}
+
 	/** finds out playlist title or use filename instead */
 	private String determineTitle(File file, Smil smil) {
+		if (smil == null) {
+			return "";
+		}
 		String title;
 		if (smil.getHead() != null && smil.getHead().getTitle() != null) {
 			title = smil.getHead().getTitle();
@@ -73,11 +78,16 @@ public class WPLStrategy implements PlaylistFormatStrategy {
 	}
 
 	private List<String> getFiles(Smil smil) {
-		if (smil != null && smil.getHead() != null) {
+		if (smil == null) {
+			LOG.info("The playlist is empty.");
+			return new ArrayList<>();
+		}
+
+		if (smil.getHead() != null) {
 			LOG.info("Copying files from list {} by {}", smil.getHead().getTitle(), smil.getHead().getAuthor());
 		}
 
-		if (smil != null && smil.getBody() == null || smil.getBody().getSeq() == null || smil.getBody().getSeq().getMedia() == null) {
+		if (smil.getBody() == null || smil.getBody().getSeq() == null || smil.getBody().getSeq().getMedia() == null) {
 			if (smil.getHead() == null) {
 				LOG.error("Invalid playlist");
 				return new ArrayList<>();

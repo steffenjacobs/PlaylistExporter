@@ -1,8 +1,8 @@
 package me.steffenjacobs;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -17,20 +17,19 @@ public class FileService {
 
 	private void copyFile(File targetDirectory, String file) {
 		File f = new File(file);
-		if(!f.exists()){
+		if (!f.exists()) {
 			try {
 				f = new File(f.getCanonicalPath());
-			} catch (IOException e2) {
-				//ignore -> will crash later
+			} catch (IOException e) {
+				LOG.error(e.getLocalizedMessage());
+				return;
 			}
 		}
 		File target = new File(targetDirectory.getAbsolutePath(), f.getName());
-		
+
 		try {
 			FileUtils.copyFile(f, target);
 			LOG.info("Copied file '{}'.", file);
-		} catch (FileNotFoundException e) {
-			LOG.error(e.getLocalizedMessage());
 		} catch (IOException e) {
 			LOG.error(e.getLocalizedMessage());
 		}
@@ -45,9 +44,26 @@ public class FileService {
 		}
 
 		// copy files
-		for (String f : files) {	
+		for (String f : files) {
 			copyFile(targetDirectory, f);
 		}
 		LOG.info("Copied {} files.", files.size());
+	}
+
+	public File fixXml(File file, String charset) {
+		String str;
+		File file2 = new File(file.getParent(), System.currentTimeMillis() + "-temp");
+		try {
+			if (!file2.createNewFile()) {
+				throw new IOException(String.format("Could not create temporary file '%s'", file2.getAbsolutePath()));
+			}
+			str = FileUtils.readFileToString(file, charset);
+			str = str.replaceAll("&[^a]", "&amp; ");
+			FileUtils.writeStringToFile(file2, str, Charset.forName("UTF-8"));
+			return file2;
+		} catch (IOException e) {
+			LOG.error(e.getLocalizedMessage());
+		}
+		return file2;
 	}
 }
