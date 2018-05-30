@@ -24,7 +24,7 @@ public class PlaylistExporter {
 				}
 				PlaylistFormatStrategy strat = PlaylistFormatStrategy.determineStrategy(f);
 				if (strat == null) {
-					LOG.error("Playlist format for file '{}' is not supported. Supported formats are: WPL, M3U, ASX.", f.getAbsolutePath());
+					LOG.error("Playlist format for file '{}' is not supported. Supported formats are: WPL, ZPL, M3U, ASX.", f.getAbsolutePath());
 					return;
 				}
 				strat.readPlaylistFile(f, f.getParent());
