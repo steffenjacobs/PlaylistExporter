@@ -32,7 +32,20 @@ public class WPLStrategy implements PlaylistFormatStrategy {
 	private static final Logger LOG = LoggerFactory.getLogger(WPLStrategy.class);
 
 	@Override
+	public boolean isFormat(File file) {
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(Smil.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			jaxbUnmarshaller.unmarshal(file);
+			return true;
+		} catch (JAXBException e) {
+			return false;
+		}
+	}
+
+	@Override
 	public void readPlaylistFile(File file, String target) {
+		System.setProperty("user.dir", file.getParent());
 		Smil smil;
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Smil.class);
@@ -61,7 +74,7 @@ public class WPLStrategy implements PlaylistFormatStrategy {
 
 	private List<String> getFiles(Smil smil) {
 		if (smil != null && smil.getHead() != null) {
-			LOG.info("Copying files from list {} by {}", smil.getHead().getTitle(), smil.getHead().getTitle());
+			LOG.info("Copying files from list {} by {}", smil.getHead().getTitle(), smil.getHead().getAuthor());
 		}
 
 		if (smil != null && smil.getBody() == null || smil.getBody().getSeq() == null || smil.getBody().getSeq().getMedia() == null) {

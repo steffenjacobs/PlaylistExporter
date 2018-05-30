@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import me.steffenjacobs.strategy.PlaylistFormatStrategy;
-import me.steffenjacobs.strategy.StrategyDeterminer;
 
 /** @author Steffen Jacobs */
 public class PlaylistReader {
@@ -21,8 +20,13 @@ public class PlaylistReader {
 				File f = new File(s);
 				if (!f.exists()) {
 					LOG.error("File '{}' not found.", f.getAbsolutePath());
+					return;
 				}
-				PlaylistFormatStrategy strat = new StrategyDeterminer().determineStrategy(f);
+				PlaylistFormatStrategy strat = PlaylistFormatStrategy.determineStrategy(f);
+				if (strat == null) {
+					LOG.error("Playlist format for file '{}' is not supported. Supported formats are: WPL, M3U, ASX.", f.getAbsolutePath());
+					return;
+				}
 				strat.readPlaylistFile(f, f.getParent());
 			}
 			LOG.info("Read playlist from {} files.", args.length);

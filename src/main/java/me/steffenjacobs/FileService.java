@@ -1,6 +1,7 @@
 package me.steffenjacobs;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -16,11 +17,20 @@ public class FileService {
 
 	private void copyFile(File targetDirectory, String file) {
 		File f = new File(file);
+		if(!f.exists()){
+			try {
+				f = new File(f.getCanonicalPath());
+			} catch (IOException e2) {
+				//ignore -> will crash later
+			}
+		}
 		File target = new File(targetDirectory.getAbsolutePath(), f.getName());
-
+		
 		try {
 			FileUtils.copyFile(f, target);
 			LOG.info("Copied file '{}'.", file);
+		} catch (FileNotFoundException e) {
+			LOG.error(e.getLocalizedMessage());
 		} catch (IOException e) {
 			LOG.error(e.getLocalizedMessage());
 		}
@@ -35,7 +45,7 @@ public class FileService {
 		}
 
 		// copy files
-		for (String f : files) {
+		for (String f : files) {	
 			copyFile(targetDirectory, f);
 		}
 		LOG.info("Copied {} files.", files.size());
