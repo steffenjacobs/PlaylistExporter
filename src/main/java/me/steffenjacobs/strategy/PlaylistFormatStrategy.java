@@ -11,7 +11,7 @@ public interface PlaylistFormatStrategy {
 	public boolean isFormat(File file);
 	
 	public static PlaylistFormatStrategy determineStrategy(File file) {
-		for (PlaylistFormatStrategy s : Arrays.asList(new WPLStrategy(), new M3UStrategy())) {
+		for (PlaylistFormatStrategy s : Arrays.asList(new WPLStrategy(), new M3UStrategy(), new ASXStrategy())) {
 			if (s.isFormat(file)) {
 				return s;
 			}
