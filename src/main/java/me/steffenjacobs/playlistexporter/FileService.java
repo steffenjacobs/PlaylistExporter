@@ -49,7 +49,9 @@ public class FileService {
 
 		// copy files
 		for (String f : files) {
-			copyFile(targetDirectory, f);
+			if (f != null) {
+				copyFile(targetDirectory, f);
+			}
 		}
 		LOG.info("Copied {} files.", files.size());
 	}
