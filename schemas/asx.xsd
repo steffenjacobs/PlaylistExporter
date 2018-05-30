@@ -1,0 +1,104 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.1">
+	<xs:element name="Asx">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Param">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute type="xs:string" name="Name"/>
+								<xs:attribute type="xs:string" name="Value">
+									<xs:annotation>
+										<xs:appinfo>
+											<jaxb:property name="valueAttribute"/>
+										</xs:appinfo>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element type="xs:string" name="Title"/>
+				<xs:element name="Entry" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded" minOccurs="0">
+							<xs:element name="Duration">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute type="xs:time" name="value" use="optional">
+												<xs:annotation>
+													<xs:appinfo>
+														<jaxb:property name="valueAttribute"/>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Param">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute type="xs:string" name="Name" use="optional"/>
+											<xs:attribute type="xs:string" name="Value" use="optional">
+												<xs:annotation>
+													<xs:appinfo>
+														<jaxb:property name="valueAttribute"/>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Author">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute type="xs:string" name="Name" use="optional"/>
+											<xs:attribute type="xs:string" name="Value" use="optional">
+												<xs:annotation>
+													<xs:appinfo>
+														<jaxb:property name="valueAttribute"/>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Title">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute type="xs:string" name="Name" use="optional"/>
+											<xs:attribute type="xs:string" name="Value" use="optional">
+												<xs:annotation>
+													<xs:appinfo>
+														<jaxb:property name="valueAttribute"/>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Ref">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute type="xs:string" name="href" use="optional"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute type="xs:float" name="Version"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
