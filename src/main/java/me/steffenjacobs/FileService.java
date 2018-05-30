@@ -35,6 +35,10 @@ public class FileService {
 		}
 	}
 
+	/**
+	 * copies a list of <i>files</i> into a new folder with the name
+	 * <i>title</i> in the <i>target</i>-directory
+	 */
 	public void handleCopy(String target, List<String> files, String title) {
 		// create target
 		File targetDirectory = new File(target, title);
@@ -50,6 +54,10 @@ public class FileService {
 		LOG.info("Copied {} files.", files.size());
 	}
 
+	/**
+	 * fixes the XML (relevant for ASX files exported with the Windows Media
+	 * Player: WMP does not standard-conform XML
+	 */
 	public File fixXml(File file, String charset) {
 		String str;
 		File file2 = new File(file.getParent(), System.currentTimeMillis() + "-temp");
