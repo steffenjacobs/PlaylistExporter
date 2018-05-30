@@ -15,7 +15,14 @@ import org.slf4j.LoggerFactory;
 import me.steffenjacobs.domain.wpl.Smil;
 import me.steffenjacobs.domain.wpl.Smil.Body.Seq.Media;
 
-/** @author Steffen Jacobs */
+/**
+ * Strategy for Windows Media Player Playlists (.wpl)
+ * 
+ * @see <a
+ *      href=https://msdn.microsoft.com/en-us/library/dd564688(VS.85).aspx>Microsoft
+ *      Documentation of .wpl</a>
+ * @author Steffen Jacobs
+ */
 public class WPLStrategy {
 
 	private FileService fileService = FileService.instance;

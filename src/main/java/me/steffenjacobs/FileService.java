@@ -14,7 +14,7 @@ public class FileService {
 	private static final Logger LOG = LoggerFactory.getLogger(FileService.class);
 	public static final FileService instance = new FileService();
 
-	public void copyFile(File targetDirectory, String file) {
+	private void copyFile(File targetDirectory, String file) {
 		File f = new File(file);
 		File target = new File(targetDirectory.getAbsolutePath(), f.getName());
 
@@ -29,16 +29,14 @@ public class FileService {
 	public void handleCopy(String target, List<String> files, String title) {
 		// create target
 		File targetDirectory = new File(target, title);
-		if (!targetDirectory.exists()) {
-			if (!targetDirectory.mkdirs()) {
-				LOG.error("Could not create target directory '{}'.", targetDirectory);
-				return;
-			}
+		if (!targetDirectory.exists() && !targetDirectory.mkdirs()) {
+			LOG.error("Could not create target directory '{}'.", targetDirectory);
+			return;
 		}
 
 		// copy files
-		for (String s : files) {
-			copyFile(targetDirectory, s);
+		for (String f : files) {
+			copyFile(targetDirectory, f);
 		}
 		LOG.info("Copied {} files.", files.size());
 	}

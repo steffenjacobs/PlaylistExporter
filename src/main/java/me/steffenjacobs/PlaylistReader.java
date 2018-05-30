@@ -1,7 +1,6 @@
 package me.steffenjacobs;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
@@ -12,7 +11,7 @@ public class PlaylistReader {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PlaylistReader.class);
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		WPLStrategy strat = new WPLStrategy();
 		if (args.length > 0) {
